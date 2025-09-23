@@ -1,8 +1,6 @@
-package com.example.the_bar_app.models;
+package com.example.the_bar_app.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +24,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     private boolean enabled = true;

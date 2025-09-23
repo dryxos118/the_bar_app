@@ -1,6 +1,6 @@
-package com.example.the_bar_app.controllers;
+package com.example.the_bar_app.controller;
 
-import com.example.the_bar_app.models.User;
+import com.example.the_bar_app.entity.User;
 import com.example.the_bar_app.repository.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user")
 @Tag(name = "User")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/me")
-    public ResponseEntity<?> me() {
+    @GetMapping(value = "/me", produces = {"application/json"})
+    public ResponseEntity<?> me(Principal principal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userRepository.findByUsername(username)

@@ -1,9 +1,9 @@
-package com.example.the_bar_app.controllers;
+package com.example.the_bar_app.controller;
 
-import com.example.the_bar_app.interfaces.IAuthService;
-import com.example.the_bar_app.models.dto.LoginDto;
-import com.example.the_bar_app.models.dto.RegisterDto;
-import com.example.the_bar_app.models.response.AuthResponse;
+import com.example.the_bar_app.service.impl.IAuthService;
+import com.example.the_bar_app.dto.LoginDto;
+import com.example.the_bar_app.dto.RegisterDto;
+import com.example.the_bar_app.dto.AuthResponse;
 import com.example.the_bar_app.repository.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

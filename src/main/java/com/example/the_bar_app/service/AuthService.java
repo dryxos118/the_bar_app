@@ -1,11 +1,11 @@
-package com.example.the_bar_app.services;
+package com.example.the_bar_app.service;
 
-import com.example.the_bar_app.interfaces.IAuthService;
-import com.example.the_bar_app.models.RoleName;
-import com.example.the_bar_app.models.User;
-import com.example.the_bar_app.models.dto.LoginDto;
-import com.example.the_bar_app.models.dto.RegisterDto;
-import com.example.the_bar_app.models.response.AuthResponse;
+import com.example.the_bar_app.service.impl.IAuthService;
+import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.entity.User;
+import com.example.the_bar_app.dto.LoginDto;
+import com.example.the_bar_app.dto.RegisterDto;
+import com.example.the_bar_app.dto.AuthResponse;
 import com.example.the_bar_app.repository.UserRepository;
 import com.example.the_bar_app.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

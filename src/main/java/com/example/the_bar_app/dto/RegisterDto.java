@@ -1,6 +1,6 @@
-package com.example.the_bar_app.models.dto;
+package com.example.the_bar_app.dto;
 
-import com.example.the_bar_app.models.RoleName;
+import com.example.the_bar_app.entity.RoleName;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

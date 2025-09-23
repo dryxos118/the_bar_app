@@ -1,6 +1,6 @@
 package com.example.the_bar_app.security;
 
-import com.example.the_bar_app.services.CustomUserDetailsService;
+import com.example.the_bar_app.service.CustomUserDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

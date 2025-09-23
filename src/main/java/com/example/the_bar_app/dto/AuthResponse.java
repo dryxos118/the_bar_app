@@ -1,4 +1,4 @@
-package com.example.the_bar_app.models.response;
+package com.example.the_bar_app.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

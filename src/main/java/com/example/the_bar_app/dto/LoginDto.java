@@ -1,4 +1,4 @@
-package com.example.the_bar_app.models.dto;
+package com.example.the_bar_app.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

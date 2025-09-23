@@ -1,4 +1,4 @@
-package com.example.the_bar_app.models;
+package com.example.the_bar_app.entity;
 
 public enum RoleName {
     USER,

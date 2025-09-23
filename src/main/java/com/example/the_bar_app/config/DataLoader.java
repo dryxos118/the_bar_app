@@ -1,7 +1,7 @@
-package com.example.the_bar_app.configs;
+package com.example.the_bar_app.config;
 
-import com.example.the_bar_app.models.RoleName;
-import com.example.the_bar_app.models.User;
+import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.entity.User;
 import com.example.the_bar_app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
