@@ -1,6 +1,6 @@
 package com.example.the_bar_app.security;
 
-import com.example.the_bar_app.service.CustomUserDetailsService;
+import com.example.the_bar_app.service.AppUserDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
-    private final CustomUserDetailsService userDetailsService;
+    private final AppUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

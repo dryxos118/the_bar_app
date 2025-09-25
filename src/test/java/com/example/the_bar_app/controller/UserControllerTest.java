@@ -43,8 +43,6 @@ public class UserControllerTest {
     UserRepository userRepository;
     @MockitoBean
     JwtAuthenticationFilter jwtAuthenticationFilter;
-    @MockitoBean
-    JwtUtil jwtUtil;
 
     @BeforeEach
     void passThroughJwtFilter() throws Exception {

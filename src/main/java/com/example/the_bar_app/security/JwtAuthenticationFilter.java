@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.the_bar_app.service.CustomUserDetailsService;
+import com.example.the_bar_app.service.AppUserDetailsService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwt;
-    private final CustomUserDetailsService users;
+    private final AppUserDetailsService users;
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, @NonNull HttpServletResponse res, @NonNull FilterChain filterChain)

@@ -1,5 +1,6 @@
 package com.example.the_bar_app.controller;
 
+import com.example.the_bar_app.entity.User;
 import com.example.the_bar_app.service.impl.IAuthService;
 import com.example.the_bar_app.dto.LoginDto;
 import com.example.the_bar_app.dto.RegisterDto;
@@ -8,11 +9,15 @@ import com.example.the_bar_app.repository.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RequestMapping("/auth")
 @RestController
