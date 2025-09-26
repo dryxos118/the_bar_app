@@ -17,12 +17,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
-    private final UserRepository users;
+    private final UserRepository repo;
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        User user = users.findByUsername(usernameOrEmail)
-            .or(() -> users.findByEmail(usernameOrEmail))
+        User user = repo.findByUsername(usernameOrEmail)
+            .or(() -> repo.findByEmail(usernameOrEmail))
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         Set<GrantedAuthority> auths = Set.of(new SimpleGrantedAuthority(user.getRole().name()));

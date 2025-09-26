@@ -3,29 +3,27 @@ package com.example.the_bar_app.config;
 import com.example.the_bar_app.entity.RoleName;
 import com.example.the_bar_app.entity.User;
 import com.example.the_bar_app.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository repo;
+    private final PasswordEncoder encoder;
 
     @Override
     public void run(String... args) throws Exception {
-        if (userRepository.count() == 0) {
+        if (repo.count() == 0) {
             User user = new User();
             user.setEmail("Dryxos@example.com");
             user.setUsername("Dryxos");
-            user.setPassword(passwordEncoder.encode("Dryxos"));
+            user.setPassword(encoder.encode("Dryxos"));
             user.setRole(RoleName.ADMIN);
-            userRepository.save(user);
+            repo.save(user);
 
             System.out.println("1 User created by default");
         }

@@ -3,9 +3,10 @@ package com.example.the_bar_app.api;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 
 @Slf4j
 @RestControllerAdvice
@@ -27,6 +28,16 @@ public class GlobalExceptionHandler {
         log.error("Unhandled error at {}: {}", loc, ex.getMessage(), ex);
         var body = new ErrorPayload(ErrorType.INTERNAL_SERVER_ERROR.name(), "Unexpected error", loc, null);
         return ResponseEntity.status(ErrorType.INTERNAL_SERVER_ERROR.status()).body(body);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public void passThrough(AccessDeniedException ex) {
+        throw ex;
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public void passThrough(AuthenticationException ex) {
+        throw ex;
     }
 
     private static String safeLocation(HttpServletRequest req) {

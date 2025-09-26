@@ -10,10 +10,11 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IUserService {
+    UserSummaryDto loadUserByUsername(String usernameOrEmail);
     Page<UserSummaryDto> listPageable(Pageable pageable);
     List<UserSummaryDto> listAll();
-    UserSummaryDto changeRole(Long userId,RoleName roleName) throws BadRequestException;
-    boolean delete(Long userId) throws BadRequestException;
-    boolean enable(Long userId) throws BadRequestException;
+    UserSummaryDto changeRole(Long userId,RoleName roleName);
+    boolean delete(Long userId);
+    boolean enable(Long userId);
     UserSummaryDto userToDto(User user);
 }

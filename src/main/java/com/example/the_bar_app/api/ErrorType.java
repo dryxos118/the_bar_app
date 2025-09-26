@@ -3,7 +3,6 @@ package com.example.the_bar_app.api;
 import org.springframework.http.HttpStatus;
 
 public enum ErrorType {
-    SUCCESS(HttpStatus.OK),
     BAD_REQUEST(HttpStatus.BAD_REQUEST),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED),
     FORBIDDEN(HttpStatus.FORBIDDEN),

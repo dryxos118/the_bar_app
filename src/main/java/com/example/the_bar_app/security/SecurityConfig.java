@@ -1,10 +1,13 @@
 package com.example.the_bar_app.security;
 
+import com.example.the_bar_app.api.ErrorPayload;
+import com.example.the_bar_app.api.ErrorType;
 import com.example.the_bar_app.service.AppUserDetailsService;
-import jakarta.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -34,7 +37,7 @@ public class SecurityConfig {
     private final AppUserDetailsService userDetailsService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, ObjectMapper om) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(
                         sessionManagement -> sessionManagement
@@ -44,8 +47,8 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(authEntryPoint())
-                        .accessDeniedHandler(accessDeniedHandler()))
+                        .authenticationEntryPoint(authEntryPoint(om))
+                        .accessDeniedHandler(accessDeniedHandler(om)))
                 .userDetailsService(userDetailsService)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -64,33 +67,40 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8080"));
-        configuration.setAllowedMethods(List.of("GET", "POST"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
     @Bean
-    public AuthenticationEntryPoint authEntryPoint() {
-        return (request, response, ex) -> {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
-            response.setContentType("application/json");
-            response.getWriter().write("""
-                        {"error":"unauthorized","message":"Authentication required or token invalid"}
-                    """);
+    public AuthenticationEntryPoint authEntryPoint(ObjectMapper om) {
+        return (req, res, ex) -> {
+            res.setStatus(HttpStatus.UNAUTHORIZED.value()); // 401
+            res.setContentType("application/json");
+            ErrorPayload body = new ErrorPayload(
+                    ErrorType.UNAUTHORIZED.name(),
+                    "Authentication required or token invalid",
+                    req.getMethod() + " " + req.getRequestURI(),
+                    null);
+            om.writeValue(res.getOutputStream(), body);
         };
     }
 
     @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, ex) -> {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
-            response.setContentType("application/json");
-            response.getWriter().write("""
-                        {"error":"forbidden","message":"You do not have permission to access this resource"}
-                    """);
+    public AccessDeniedHandler accessDeniedHandler(ObjectMapper om) {
+        return (req, res, ex) -> {
+            res.setStatus(HttpStatus.FORBIDDEN.value()); // 401
+            res.setContentType("application/json");
+            ErrorPayload body = new ErrorPayload(
+                    ErrorType.FORBIDDEN.name(),
+                    "You do not have permission to access this resource",
+                    req.getMethod() + " " + req.getRequestURI(),
+                    null);
+            om.writeValue(res.getOutputStream(), body);
         };
     }
 }

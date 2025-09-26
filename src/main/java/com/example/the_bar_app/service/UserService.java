@@ -7,8 +7,7 @@ import com.example.the_bar_app.entity.RoleName;
 import com.example.the_bar_app.entity.User;
 import com.example.the_bar_app.repository.UserRepository;
 import com.example.the_bar_app.service.impl.IUserService;
-import org.apache.coyote.BadRequestException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,58 +15,70 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements IUserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository repo;
+
+    @Override
+    public UserSummaryDto loadUserByUsername(String usernameOrEmail) {
+        User user = repo.findByEmail(usernameOrEmail)
+                .or(() -> repo.findByUsername(usernameOrEmail))
+                .orElseThrow(() -> new AppException(ErrorType.NOT_FOUND, "User not found"));
+        return userToDto(user);
+    }
 
     @Override
     public Page<UserSummaryDto> listPageable(Pageable pageable) {
-        Page<User> page = userRepository.findAll(pageable);
+        Page<User> page = repo.findAll(pageable);
         return page.map(this::userToDto);
     }
 
     @Override
     public List<UserSummaryDto> listAll() {
-        List<User> users = userRepository.findAll();
+        List<User> users = repo.findAll();
         return users.stream().map(this::userToDto).toList();
     }
 
     @Override
-    public UserSummaryDto changeRole(Long userId, RoleName roleName) throws AppException {
+    public UserSummaryDto changeRole(Long userId, RoleName roleName) {
         if (roleName == null) throw new IllegalArgumentException("Role must be null");
-        User user = userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorType.BAD_REQUEST, "User not found"));
+        User user = repo.findById(userId).orElseThrow(() -> notFound(userId));
         if (user.getRole() == RoleName.ADMIN && roleName != RoleName.ADMIN) {
-            long admins = userRepository.countByRole(RoleName.ADMIN);
+            long admins = repo.countByRole(RoleName.ADMIN);
             if (admins <= 1) {
-                throw new AppException(ErrorType.BAD_REQUEST, "Impossible it's a last ADMIN");
+                throw new AppException(ErrorType.BAD_REQUEST, "Cannot downgrade the last ADMIN");
             }
         }
         user.setRole(roleName);
-        userRepository.save(user);
+        repo.save(user);
         return userToDto(user);
     }
 
     @Override
-    public boolean delete(Long userId) throws AppException {
-        User user = userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorType.BAD_REQUEST, "User not found"));
-        if (user.getRole() == RoleName.ADMIN && userRepository.countByRole(RoleName.ADMIN) <= 1) {
-            throw new AppException(ErrorType.BAD_REQUEST, "Impossible it's a last ADMIN");
+    public boolean delete(Long userId) {
+        User user = repo.findById(userId).orElseThrow(() -> notFound(userId));
+        if (user.getRole() == RoleName.ADMIN && repo.countByRole(RoleName.ADMIN) <= 1) {
+            throw new AppException(ErrorType.BAD_REQUEST, "Cannot delete the last ADMIN");
         }
-        userRepository.delete(user);
+        repo.delete(user);
         return true;
     }
 
     @Override
-    public boolean enable(Long userId) throws AppException {
-        User user = userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorType.BAD_REQUEST, "User not found"));
+    public boolean enable(Long userId) {
+        User user = repo.findById(userId).orElseThrow(() -> notFound(userId));
         user.setEnabled(!user.isEnabled());
-        userRepository.save(user);
+        repo.save(user);
         return true;
     }
 
     @Override
     public UserSummaryDto userToDto(User user) {
         return new UserSummaryDto(user.getId(), user.getUsername(), user.getEmail(), user.getRole(), user.isEnabled());
+    }
+
+    private AppException notFound(Long id) {
+        return new AppException(ErrorType.NOT_FOUND,"User " + id + " not found");
     }
 }

@@ -1,52 +1,68 @@
 package com.example.the_bar_app.controller;
 
-import com.example.the_bar_app.api.AppException;
-import com.example.the_bar_app.api.ErrorType;
-import com.example.the_bar_app.entity.User;
-import com.example.the_bar_app.repository.UserRepository;
+import com.example.the_bar_app.dto.UserSummaryDto;
+import com.example.the_bar_app.entity.RoleName;
 import com.example.the_bar_app.service.impl.IUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
 @Tag(name = "User")
+@PreAuthorize("hasAuthority('ADMIN')")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private IUserService userService;
+    private final IUserService service;
 
     @GetMapping("/me")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> me(Principal principal) {
-        User user = userRepository.findByUsername(principal.getName())
-                .or(() -> userRepository.findByEmail(principal.getName()))
-                .orElseThrow();
+        UserSummaryDto user = service.loadUserByUsername(principal.getName());
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<UserSummaryDto>> list() {
+        List<UserSummaryDto> userSummaryDtoList = service.listAll();
+        return ResponseEntity.ok(userSummaryDtoList);
+    }
+
     @GetMapping("/page/list")
-    public ResponseEntity<?> listPageable(
-            @PageableDefault(size = 20) Pageable pageable) {
-        return ResponseEntity.ok("");
+    public ResponseEntity<Page<UserSummaryDto>> listPageable(
+            @RequestParam(defaultValue = "20") int count,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+        Pageable pageable = PageRequest.of(page, count, Sort.by("id").descending());
+        Page<UserSummaryDto> userSummaryDtoPage = service.listPageable(pageable);
+        return ResponseEntity.ok(userSummaryDtoPage);
     }
 
-    @PatchMapping("/{id}/enabled")
-    public boolean setEnabled(@PathVariable Long id, @RequestParam("value") boolean value) {
-        return true;
+    @PatchMapping("/role/{id}")
+    public ResponseEntity<UserSummaryDto> changeRole(@PathVariable Long id, @RequestParam RoleName role) {
+        UserSummaryDto user = service.changeRole(id, role);
+        return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) {
-        return true;
+    @PatchMapping("/enabled/{id}")
+    public ResponseEntity<Boolean> setEnabled(@PathVariable Long id) {
+        boolean success = service.enable(id);
+        return ResponseEntity.ok(success);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+        boolean success = service.delete(id);
+        return ResponseEntity.ok(success);
     }
 }
