@@ -2,13 +2,12 @@ package com.example.the_bar_app.service;
 
 import com.example.the_bar_app.api.AppException;
 import com.example.the_bar_app.api.ErrorType;
-import com.example.the_bar_app.dto.DrinkDto;
-import com.example.the_bar_app.entity.Drink;
-import com.example.the_bar_app.entity.DrinkMapper;
+import com.example.the_bar_app.dto.drink.DrinkDto;
+import com.example.the_bar_app.entity.drink.Drink;
+import com.example.the_bar_app.mapper.DrinkMapper;
 import com.example.the_bar_app.repository.DrinkRepository;
 import com.example.the_bar_app.service.impl.IDrinkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

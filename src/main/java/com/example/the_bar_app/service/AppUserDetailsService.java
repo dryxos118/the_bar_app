@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.the_bar_app.entity.User;
+import com.example.the_bar_app.entity.user.User;
 import com.example.the_bar_app.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

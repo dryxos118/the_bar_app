@@ -1,6 +1,6 @@
-package com.example.the_bar_app.dto;
+package com.example.the_bar_app.dto.user;
 
-import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.entity.user.RoleName;
 
 public record UserSummaryDto(
         Long id,

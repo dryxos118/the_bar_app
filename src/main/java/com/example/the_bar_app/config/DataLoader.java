@@ -1,7 +1,7 @@
 package com.example.the_bar_app.config;
 
-import com.example.the_bar_app.entity.RoleName;
-import com.example.the_bar_app.entity.User;
+import com.example.the_bar_app.entity.user.RoleName;
+import com.example.the_bar_app.entity.user.User;
 import com.example.the_bar_app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

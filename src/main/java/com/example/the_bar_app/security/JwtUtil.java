@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.crypto.SecretKey;
 
-import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.entity.user.RoleName;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 

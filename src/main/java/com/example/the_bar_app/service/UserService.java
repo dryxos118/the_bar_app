@@ -2,9 +2,9 @@ package com.example.the_bar_app.service;
 
 import com.example.the_bar_app.api.AppException;
 import com.example.the_bar_app.api.ErrorType;
-import com.example.the_bar_app.dto.UserSummaryDto;
-import com.example.the_bar_app.entity.RoleName;
-import com.example.the_bar_app.entity.User;
+import com.example.the_bar_app.dto.user.UserSummaryDto;
+import com.example.the_bar_app.entity.user.RoleName;
+import com.example.the_bar_app.entity.user.User;
 import com.example.the_bar_app.repository.UserRepository;
 import com.example.the_bar_app.service.impl.IUserService;
 import lombok.RequiredArgsConstructor;

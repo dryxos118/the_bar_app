@@ -1,6 +1,6 @@
 package com.example.the_bar_app.service.impl;
 
-import com.example.the_bar_app.dto.DrinkDto;
+import com.example.the_bar_app.dto.drink.DrinkDto;
 
 import java.util.List;
 

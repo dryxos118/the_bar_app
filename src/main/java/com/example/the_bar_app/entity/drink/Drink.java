@@ -1,4 +1,4 @@
-package com.example.the_bar_app.entity;
+package com.example.the_bar_app.entity.drink;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;

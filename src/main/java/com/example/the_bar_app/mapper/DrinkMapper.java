@@ -1,6 +1,7 @@
-package com.example.the_bar_app.entity;
+package com.example.the_bar_app.mapper;
 
-import com.example.the_bar_app.dto.DrinkDto;
+import com.example.the_bar_app.dto.drink.DrinkDto;
+import com.example.the_bar_app.entity.drink.Drink;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

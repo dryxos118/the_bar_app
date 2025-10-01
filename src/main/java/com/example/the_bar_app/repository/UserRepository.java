@@ -2,10 +2,10 @@ package com.example.the_bar_app.repository;
 
 import java.util.Optional;
 
-import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.entity.user.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.the_bar_app.entity.User;
+import com.example.the_bar_app.entity.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);

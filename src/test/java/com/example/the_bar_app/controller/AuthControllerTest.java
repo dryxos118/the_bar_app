@@ -1,8 +1,8 @@
 package com.example.the_bar_app.controller;
 
-import com.example.the_bar_app.dto.AuthResponse;
-import com.example.the_bar_app.dto.RegisterDto;
-import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.dto.auth.AuthResponse;
+import com.example.the_bar_app.dto.auth.RegisterDto;
+import com.example.the_bar_app.entity.user.RoleName;
 import com.example.the_bar_app.repository.UserRepository;
 import com.example.the_bar_app.security.JwtAuthenticationFilter;
 import com.example.the_bar_app.security.JwtUtil;

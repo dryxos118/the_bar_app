@@ -1,11 +1,11 @@
 package com.example.the_bar_app.service;
 
 import com.example.the_bar_app.service.impl.IAuthService;
-import com.example.the_bar_app.entity.RoleName;
-import com.example.the_bar_app.entity.User;
-import com.example.the_bar_app.dto.LoginDto;
-import com.example.the_bar_app.dto.RegisterDto;
-import com.example.the_bar_app.dto.AuthResponse;
+import com.example.the_bar_app.entity.user.RoleName;
+import com.example.the_bar_app.entity.user.User;
+import com.example.the_bar_app.dto.auth.LoginDto;
+import com.example.the_bar_app.dto.auth.RegisterDto;
+import com.example.the_bar_app.dto.auth.AuthResponse;
 import com.example.the_bar_app.repository.UserRepository;
 import com.example.the_bar_app.security.JwtUtil;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.the_bar_app.controller;
 
-import com.example.the_bar_app.dto.DrinkDto;
+import com.example.the_bar_app.dto.drink.DrinkDto;
 import com.example.the_bar_app.dto.OnCreate;
 import com.example.the_bar_app.dto.OnPut;
 import com.example.the_bar_app.service.impl.IDrinkService;

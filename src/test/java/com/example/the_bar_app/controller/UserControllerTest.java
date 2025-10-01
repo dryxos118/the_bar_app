@@ -1,13 +1,10 @@
 package com.example.the_bar_app.controller;
 
-import com.example.the_bar_app.entity.RoleName;
-import com.example.the_bar_app.entity.User;
+import com.example.the_bar_app.entity.user.RoleName;
+import com.example.the_bar_app.entity.user.User;
 import com.example.the_bar_app.repository.UserRepository;
 import com.example.the_bar_app.security.JwtAuthenticationFilter;
-import com.example.the_bar_app.security.JwtUtil;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Optional;
 

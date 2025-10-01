@@ -3,7 +3,7 @@ package com.example.the_bar_app.security;
 import java.io.IOException;
 import java.util.Set;
 
-import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.entity.user.RoleName;
 import lombok.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

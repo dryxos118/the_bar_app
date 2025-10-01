@@ -1,7 +1,9 @@
-package com.example.the_bar_app.dto;
+package com.example.the_bar_app.dto.drink;
 
-import com.example.the_bar_app.entity.DrinkCategory;
-import com.example.the_bar_app.entity.DrinkTag;
+import com.example.the_bar_app.dto.OnCreate;
+import com.example.the_bar_app.dto.OnPut;
+import com.example.the_bar_app.entity.drink.DrinkCategory;
+import com.example.the_bar_app.entity.drink.DrinkTag;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;

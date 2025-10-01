@@ -41,7 +41,7 @@ public class OpenApiConfig {
     }
 
     @Bean
-    public GroupedOpenApi authApis(){
+    public GroupedOpenApi authApis() {
         return GroupedOpenApi.builder()
                 .group("Auth")
                 .pathsToMatch("/auth/**")
@@ -52,7 +52,7 @@ public class OpenApiConfig {
     public GroupedOpenApi usersApis() {
         return GroupedOpenApi.builder()
                 .group("Users")
-                .pathsToMatch("/user/**")
+                .pathsToMatch("/user/**", "/me/**")
                 .build();
     }
 

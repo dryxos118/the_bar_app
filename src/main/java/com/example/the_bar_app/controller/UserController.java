@@ -1,7 +1,7 @@
 package com.example.the_bar_app.controller;
 
-import com.example.the_bar_app.dto.UserSummaryDto;
-import com.example.the_bar_app.entity.RoleName;
+import com.example.the_bar_app.dto.user.UserSummaryDto;
+import com.example.the_bar_app.entity.user.RoleName;
 import com.example.the_bar_app.service.impl.IUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -24,13 +23,6 @@ import java.util.List;
 public class UserController {
 
     private final IUserService service;
-
-    @GetMapping("/me")
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<?> me(Principal principal) {
-        UserSummaryDto user = service.loadUserByUsername(principal.getName());
-        return ResponseEntity.ok(user);
-    }
 
     @GetMapping("/list")
     public ResponseEntity<List<UserSummaryDto>> list() {

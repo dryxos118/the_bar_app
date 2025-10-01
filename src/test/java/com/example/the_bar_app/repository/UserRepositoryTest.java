@@ -1,7 +1,7 @@
 package com.example.the_bar_app.repository;
 
-import com.example.the_bar_app.entity.RoleName;
-import com.example.the_bar_app.entity.User;
+import com.example.the_bar_app.entity.user.RoleName;
+import com.example.the_bar_app.entity.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

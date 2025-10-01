@@ -1,9 +1,8 @@
 package com.example.the_bar_app.service.impl;
 
-import com.example.the_bar_app.dto.UserSummaryDto;
-import com.example.the_bar_app.entity.RoleName;
-import com.example.the_bar_app.entity.User;
-import org.apache.coyote.BadRequestException;
+import com.example.the_bar_app.dto.user.UserSummaryDto;
+import com.example.the_bar_app.entity.user.RoleName;
+import com.example.the_bar_app.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
