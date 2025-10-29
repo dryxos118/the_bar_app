@@ -50,6 +50,7 @@ public class DrinkService implements IDrinkService {
         mapper.replaceEntityFromDto(dto, entity);
         if (dto.getHasAlcohol() == null) entity.setHasAlcohol(true);
         if (dto.getOutOfStock() == null) entity.setOutOfStock(false);
+        entity.setId(id);
         repo.save(entity);
         return true;
     }
